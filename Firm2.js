@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("date").innerText = `${dd}/${mo}/${yy}`;
   }
 
+  function randomOncePerTime(key, list) {
+    if (key !== lastRandomKey) {
+      lastRandomKey = key;
+      lastRandomValue = list[Math.floor(Math.random() * list.length)];
+    }
+    return lastRandomValue;
+  }
+
   function random(list) {
     return list[Math.floor(Math.random() * list.length)];
   }
@@ -32,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (t >= 360 && t < 390) return "🌅 ตื่นนอน";
         if (t >= 390 && t < 420) return "🍳 ทำกับข้าว / เตรียมตัว";
         if (t >= 420 && t < 510)
-          return random([
+          return randomOncePerTime([
             " 🛁 อาบน้ำ",
             "📖 อ่านหนังสือ",
             "🏃‍♂️ ออกกำลังกาย",
