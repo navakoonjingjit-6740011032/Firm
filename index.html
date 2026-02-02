@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>วางแผน — Modern UI</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Kanit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8f9fa;
+        --surface: #ffffff;
+        --primary: #000000;
+        --secondary: #6c757d;
+        --accent: #007aff;
+        --text: #1a1a1a;
+        --radius-lg: 20px;
+        --radius-md: 12px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        --gap: 20px;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        font-family: "Inter", "Kanit", sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        padding-bottom: 90px;
+        line-height: 1.5;
+      }
+
+      /* Layout Containers */
+      .container {
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 20px 12px;
+        background: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .brand {
+        font-weight: 800;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+      }
+      .user-profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* Overview Card (New Menu) */
+      .overview-card {
+        background: var(--primary);
+        color: white;
+        padding: 24px;
+        border-radius: var(--radius-lg);
+        margin: 10px 20px 24px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      }
+      .overview-label {
+        opacity: 0.7;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .overview-balance {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .overview-stats {
+        display: flex;
+        gap: 20px;
+      }
+      .stat-item {
+        flex: 1;
+      }
+      .stat-value {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      /* Search & Action */
+      .search-wrap {
+        margin-bottom: 24px;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--surface);
+        border-radius: var(--radius-md);
+        padding: 14px 18px;
+        box-shadow: var(--shadow);
+      }
+      .search-box input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        width: 100%;
+        font-size: 16px;
+        font-family: inherit;
+      }
+      .calc-btn {
+        margin-top: 12px;
+        width: 100%;
+        background: var(--surface);
+        border: 1.5px solid var(--primary);
+        padding: 14px;
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .calc-btn:active {
+        transform: scale(0.98);
+        background: #f0f0f0;
+      }
+
+      /* Section Styling */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 20px 16px;
+      }
+      .section-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .see-all {
+        font-size: 14px;
+        color: var(--accent);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 20px 24px;
+      }
+      .card {
+        text-decoration: none;
+        color: inherit;
+        background: var(--surface);
+        padding: 20px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow);
+        transition: transform 0.2s;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .card:visited {
+        color: inherit;
+      }
+      .card:active {
+        transform: scale(0.96);
+      }
+      .card-icon {
+        font-size: 24px;
+      }
+      .card-title {
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      /* Modal for Calculator */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+      }
+      .modal-content {
+        background: white;
+        padding: 28px;
+        border-radius: var(--radius-lg);
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+      .modal-content h2 {
+        margin-top: 0;
+        font-size: 22px;
+      }
+      .input-group {
+        margin-bottom: 16px;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        border: 0;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-secondary {
+        background: #eee;
+      }
+
+      /* Bottom Nav */
+      .bottom-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+      .nav-item {
+        background: transparent;
+        border: 0;
+        color: var(--secondary);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.2s;
+      }
+      .nav-item.active {
+        color: var(--primary);
+      }
+      .nav-item svg {
+        width: 24px;
+        height: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">วางแผน.</div>
+      <div class="user-profile">JS</div>
+    </header>
+
+    <main>
+      <!-- New Menu: Overview -->
+      <div class="overview-card">
+        <div class="overview-label">ยอดเงินคงเหลือปัจจุบัน</div>
+        <div class="overview-balance" id="displayBalance">฿ 12,500</div>
+        <div class="overview-stats">
+          <div class="stat-item">
+            <div class="overview-label">รายรับ</div>
+            <div class="stat-value" style="color: #4cd964">+฿ 15,000</div>
+          </div>
+          <div class="stat-item">
+            <div class="overview-label">รายจ่าย</div>
+            <div class="stat-value" style="color: #ff3b30">-฿ 2,500</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="search-wrap">
+          <div class="search-box">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="ค้นหาแผนงานของคุณ..." />
+          </div>
+          <button class="calc-btn" onclick="openCalc()">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="8" y1="10" x2="16" y2="10"></line>
+              <line x1="8" y1="14" x2="16" y2="14"></line>
+              <line x1="8" y1="18" x2="16" y2="18"></line>
+            </svg>
+            คำนวณงบประมาณด่วน
+          </button>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h3>วางแผนการใช้ชีวิต</h3>
+        <span class="see-all">ดูทั้งหมด</span>
+      </div>
+      <div class="card-grid">
+        <a href="Firm1.html" class="card">
+          <span class="card-icon">📚</span>
+          <span class="card-title">วันเรียน / ว่าง</span>
+        </a>
+        <div class="card">
+          <span class="card-icon">🏖️</span>
+          <span class="card-title">วันหยุดพักผ่อน</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">💼</span>
+          <span class="card-title">วันทำงานจริงจัง</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🧘</span>
+          <span class="card-title">เวลาส่วนตัว</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h3>เป้าหมายและการเงิน</h3>
+        <span class="see-all">ดูทั้งหมด</span>
+      </div>
+      <div class="card-grid">
+        <div class="card" style="grid-column: span 2">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span class="card-icon">💰</span>
+            <div>
+              <span class="card-title" style="display: block"
+                >บันทึกการออมเงิน</span
+              >
+              <small style="color: var(--secondary)"
+                >เป้าหมาย: ซื้อ MacBook M3</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <span class="card-icon">🛒</span>
+          <span class="card-title">งบช้อปปิ้ง</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">📈</span>
+          <span class="card-title">ลงทุนระยะยาว</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Calculator Modal -->
+    <div class="modal" id="calcModal">
+      <div class="modal-content">
+        <h2>เครื่องคิดเลขงบประมาณ</h2>
+        <div class="input-group">
+          <label>รายรับ (บาท)</label>
+          <input type="number" id="incomeInput" placeholder="0.00" />
+        </div>
+        <div class="input-group">
+          <label>รายจ่าย (บาท)</label>
+          <input type="number" id="expenseInput" placeholder="0.00" />
+        </div>
+        <div
+          id="calcResult"
+          style="
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            display: none;
+          "
+        ></div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeCalc()">
+            ยกเลิก
+          </button>
+          <button class="btn btn-primary" onclick="calculate()">คำนวณ</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+      <button class="nav-item">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path
+            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+          ></path>
+        </svg>
+      </button>
+      <button class="nav-item">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+      </button>
+      <button class="nav-item">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+      </button>
+    </nav>
+
+    <script>
+      function openCalc() {
+        document.getElementById("calcModal").style.display = "flex";
+      }
+      function closeCalc() {
+        document.getElementById("calcModal").style.display = "none";
+        document.getElementById("calcResult").style.display = "none";
+      }
+      function calculate() {
+        const income =
+          parseFloat(document.getElementById("incomeInput").value) || 0;
+        const expense =
+          parseFloat(document.getElementById("expenseInput").value) || 0;
+        const balance = income - expense;
+
+        const resultDiv = document.getElementById("calcResult");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `คงเหลือ: ฿ ${balance.toLocaleString()}`;
+
+        // Update main UI balance for demo
+        document.getElementById(
+          "displayBalance"
+        ).innerHTML = `฿ ${balance.toLocaleString()}`;
+      }
+
+      // Close modal on outside click
+      window.onclick = function (event) {
+        const modal = document.getElementById("calcModal");
+        if (event.target == modal) closeCalc();
+      };
+    </script>
+  </body>
+</html>

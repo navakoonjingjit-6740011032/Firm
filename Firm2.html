@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ตางรางเวลา</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Kanit", sans-serif;
+        background: #fff;
+        padding-bottom: 90px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        border-bottom: 1px solid #eee;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .back {
+        font-size: 22px;
+        margin-right: 12px;
+        cursor: pointer;
+      }
+
+      .username {
+        margin-left: auto;
+        font-size: 16px;
+        color: #555;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .time-card {
+        background: #e0e0e0;
+        border-radius: 14px;
+        padding: 30px 20px;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .time {
+        font-size: 72px;
+        font-weight: 800;
+      }
+
+      .date {
+        font-size: 36px;
+        font-weight: 700;
+        margin-top: 10px;
+      }
+
+      .section-title {
+        font-weight: 700;
+        margin: 24px 0 12px;
+        font-size: 18px;
+      }
+
+      .btn-gray {
+        width: 100%;
+        padding: 16px;
+        background: #e0e0e0;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 14px;
+        cursor: pointer;
+      }
+
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+      }
+
+      .nav-item {
+        font-size: 22px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back" onclick="location.href='index.html'">←</div>
+      วันจันทร์
+      <div class="username" id="username">JS</div>
+    </div>
+
+    <div class="container">
+      <h2>คาบกิจกรรม (เวลาเดินจริง)</h2>
+
+      <div class="time-card">
+        <div class="time" id="time">00:00</div>
+        <div class="date" id="date">00/00/0000</div>
+      </div>
+
+      <div class="section-title">ตัดสินใจเลือกกิจกรรม</div>
+      <button class="btn-gray" onclick="selectActivity()">เลือกกิจกรรม</button>
+
+      <div class="section-title">กิจกรรมอัตโนมัติ</div>
+      <button class="btn-gray" id="autoActivity">กำลังคำนวณกิจกรรม...</button>
+
+      <div class="section-title">งบเงินประมาณ</div>
+      <button class="btn-gray">ขึ้นอัตโนมัติตามกิจกรรม (ยังไม่เปิด)</button>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="location.href='index.html'">🏠</div>
+      <div class="nav-item">🧭</div>
+      <div class="nav-item">📊</div>
+      <div class="nav-item">🔔</div>
+      <div class="nav-item">👤</div>
+    </div>
+
+    <!-- JS -->
+    <script src="Firm2.js"></script>
+  </body>
+</html>

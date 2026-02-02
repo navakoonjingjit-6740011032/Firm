@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>วันเรียน-วันว่างเรียน — ฉบับปรับปรุง</title>
+    <style>
+      :root {
+        --primary: #4b4292;
+        --primary-light: #6e64c4;
+        --bg: #f8f9fa;
+        --surface: #ffffff;
+        --text: #2d3436;
+        --muted: #636e72;
+        --radius: 14px;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding-bottom: 80px;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        align-items: center;
+        padding: 18px 20px;
+        background: var(--surface);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 18px;
+        font-weight: 700;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .back {
+        margin-right: 15px;
+        font-size: 22px;
+        cursor: pointer;
+        color: var(--primary);
+      }
+
+      /* Content */
+      .container {
+        padding: 24px 20px;
+      }
+
+      .btn-large {
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 16px;
+        border: none;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.2s;
+      }
+
+      .btn-large:active {
+        transform: scale(0.98);
+        background: #f1f1f1;
+      }
+
+      /* Card Style */
+      .card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: var(--shadow);
+        margin-bottom: 24px;
+      }
+
+      .card h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      label {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      input {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1.5px solid #eee;
+        background: #fdfdfd;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: var(--text);
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--primary-light);
+      }
+
+      /* Calculator Specific */
+      .calc-result {
+        background: #f0effa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: none;
+      }
+      .calc-result span {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      /* Action buttons */
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 16px;
+        border-radius: 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+
+      .cancel {
+        background: #e9ecef;
+        color: var(--muted);
+      }
+
+      .confirm {
+        background: var(--primary);
+      }
+
+      .btn:active {
+        opacity: 0.8;
+      }
+
+      /* Section Title */
+      .section-title {
+        font-size: 16px;
+        font-weight: 800;
+        margin: 10px 0 15px;
+        color: var(--text);
+      }
+
+      /* Bottom nav */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-around;
+        padding: 15px 0;
+        z-index: 1000;
+      }
+
+      .nav-item {
+        font-size: 22px;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+      }
+      .nav-item.active {
+        opacity: 1;
+        color: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back" onclick="window.location.href='index.html'">←</div>
+      วันเรียน-วันว่างเรียน
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+      <div class="section-title">เมนูการวางแผน</div>
+      <button class="btn-large">📖 ตัวอย่างวางแผนการเรียน</button>
+      <button class="btn-large">➕ สร้างการวางแผนใหม่</button>
+
+      <!-- New Menu Items -->
+      <button class="btn-large">🏃 วางแผนสุขภาพและกิจกรรม</button>
+      <button class="btn-large">💡 วางแผนการเรียนรู้เพิ่มเติม</button>
+
+      <!-- Calculator Section (Functional) -->
+      <div class="card">
+        <h3>💰 คำนวณเงินใช้จ่าย</h3>
+
+        <div id="calcResultArea" class="calc-result">
+          คงเหลือ: <span id="balanceDisplay">฿ 0</span>
+        </div>
+
+        <label>รายรับ (บาท)</label>
+        <input
+          type="number"
+          id="incomeInput"
+          placeholder="กรอกจำนวนเงินรายรับ"
+        />
+
+        <label>รายจ่าย (บาท)</label>
+        <input
+          type="number"
+          id="expenseInput"
+          placeholder="กรอกจำนวนเงินรายจ่าย"
+        />
+
+        <div class="actions">
+          <button class="btn cancel" onclick="resetCalc()">ล้างข้อมูล</button>
+          <button class="btn confirm" onclick="calculateBalance()">
+            คำนวณเงิน
+          </button>
+        </div>
+      </div>
+
+      <!-- Login Card (Updated with JS Check) -->
+      <div class="card">
+        <h3>🔐 เข้าสู่ระบบผู้สร้างแผน</h3>
+
+        <label>ชื่อผู้ใช้</label>
+        <input type="text" id="usernameInput" placeholder="ชื่อผู้ใช้" />
+
+        <label>รหัสผ่าน</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" />
+
+        <div class="actions">
+          <button class="btn cancel" onclick="clearLogin()">ยกเลิก</button>
+          <button class="btn confirm" onclick="checkLogin()">ตกลง</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="location.href='index.html'">🏠</div>
+      <div class="nav-item">🧭</div>
+      <div class="nav-item">📊</div>
+      <div class="nav-item">🔔</div>
+      <div class="nav-item">👤</div>
+    </div>
+
+    <script>
+      // คำนวณเงิน
+      function calculateBalance() {
+        const income =
+          parseFloat(document.getElementById("incomeInput").value) || 0;
+        const expense =
+          parseFloat(document.getElementById("expenseInput").value) || 0;
+        const balance = income - expense;
+
+        const resultArea = document.getElementById("calcResultArea");
+        const display = document.getElementById("balanceDisplay");
+
+        display.innerText = "฿ " + balance.toLocaleString();
+        resultArea.style.display = "block";
+
+        if (balance < 0) {
+          display.style.color = "#ff7675";
+        } else {
+          display.style.color = "#4b4292";
+        }
+      }
+
+      function resetCalc() {
+        document.getElementById("incomeInput").value = "";
+        document.getElementById("expenseInput").value = "";
+        document.getElementById("calcResultArea").style.display = "none";
+      }
+
+      // ระบบล็อกอิน
+      function checkLogin() {
+        const username = document.getElementById("usernameInput").value.trim();
+        const password = document.getElementById("passwordInput").value.trim();
+
+        if (username === "navakoon" && password === "2548ff") {
+          window.location.href = "name.html"; // เปลี่ยนไปหน้า name.html
+        } else {
+          alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+        }
+      }
+
+      function clearLogin() {
+        document.getElementById("usernameInput").value = "";
+        document.getElementById("passwordInput").value = "";
+      }
+    </script>
+  </body>
+</html>
